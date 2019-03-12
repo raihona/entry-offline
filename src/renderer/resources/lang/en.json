@@ -1,5 +1,5 @@
 {
-    "category": { "name": "en" },
+    "category": {"name": "en"},
     "type": "en",
     "en": "English",
     "Command": {
@@ -2171,6 +2171,7 @@
     "ko": "한국어",
     "vn": "tiếng Việt",
     "jp": "日本語",
+    "uz": "O'zbek",
     "Menus": {
         "nothing_to_import": "There is no content to upload.",
         "nothing_to_export": "There is no content to download.",

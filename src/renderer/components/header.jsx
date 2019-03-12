@@ -71,6 +71,7 @@ class Header extends Component {
             [RendererUtils.getLang('en'), 'en'],
             [RendererUtils.getLang('jp'), 'jp'],
             [RendererUtils.getLang('vn'), 'vn'],
+            [RendererUtils.getLang('uz'), 'uz'],
         ];
     }
 
