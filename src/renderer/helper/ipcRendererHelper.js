@@ -203,7 +203,7 @@ export default class {
         ipcRenderer.send('openAboutWindow');
     }
 
-    static openHardwarePage() {
-        ipcRenderer.send('openHardwareWindow');
+    static openHardwarePage(curLang) {
+        ipcRenderer.send('openHardwareWindow', curLang);
     }
 }
