@@ -45,6 +45,7 @@ export default class {
         ipcMain.on('stopRequestLocalData', () => {
             clearInterval(this.requestLocalDataInterval);
         });
+        this.hardwareWindow.curLang = curLang;
     }
 
     openHardwareWindow(curLang) {
