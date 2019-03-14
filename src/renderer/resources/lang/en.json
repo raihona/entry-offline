@@ -6,6 +6,7 @@
     "en": "English",
     "jp": "日本語",
     "vn": "tiếng Việt",
+    "uz": "O'zbek",
     "Command": {
         "1": "장면 추가하기",
         "2": "장면 삭제하기",
@@ -2172,10 +2173,6 @@
         "single_line": "Single line",
         "multi_line": "Multiline"
     },
-    "ko": "한국어",
-    "vn": "tiếng Việt",
-    "jp": "日本語",
-    "uz": "O'zbek",
     "Menus": {
         "nothing_to_import": "There is no content to upload.",
         "nothing_to_export": "There is no content to download.",
