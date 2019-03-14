@@ -4,6 +4,7 @@ import RendererUtils from '../rendererUtils';
 import IpcRendererHelper from '../ipcRendererHelper';
 import EntryTool from 'entry-tool';
 import DatabaseManager from '../../helper/databaseManager';
+import StorageManager from '../storageManager';
 import _ from 'lodash';
 import EntryUtils from './entryUtils';
 
@@ -44,11 +45,12 @@ class EntryModalHelper {
             submit: async(data) => {
                 console.log('popupSubmitSpritePopup', data);
                 const newObjects = await IpcRendererHelper.importObjectsFromResource(data.selected);
-                newObjects.forEach(function(item) {
+                newObjects.forEach((item) => {
+                    const labeledItem = EntryModalHelper._getLabeledObject(item);
                     const object = {
                         id: Entry.generateHash(),
                         objectType: 'sprite',
-                        sprite: item, // 스프라이트 정보
+                        sprite: labeledItem, // 스프라이트 정보
                     };
                     Entry.container.addObject(object, 0);
                 });
@@ -222,8 +224,9 @@ class EntryModalHelper {
             submit: async(data) => {
                 const pictures = await IpcRendererHelper.importPicturesFromResource(data.selected);
                 pictures.forEach((object) => {
-                    object.id = Entry.generateHash();
-                    Entry.playground.addPicture(object, true);
+                    const labeledObject = EntryModalHelper._getLabeledObject(object);
+                    labeledObject.id = Entry.generateHash();
+                    Entry.playground.addPicture(labeledObject, true);
                 });
             },
             select: (data) => {
@@ -341,9 +344,10 @@ class EntryModalHelper {
             },
             submit: async(data) => {
                 const sounds = await IpcRendererHelper.importSoundsFromResource(data.selected);
-                sounds.forEach(function(item) {
-                    item.id = Entry.generateHash();
-                    Entry.playground.addSound(item, true);
+                sounds.forEach((item) => {
+                    const labeledItem = EntryModalHelper._getLabeledObject(item);
+                    labeledItem.id = Entry.generateHash();
+                    Entry.playground.addSound(labeledItem, true);
                 });
                 root.createjs.Sound.stop();
             },
@@ -416,7 +420,7 @@ class EntryModalHelper {
         expansionBlocks = _.sortBy(expansionBlocks, function(item) {
             let result = '';
             if (item.title) {
-                item.nameByLang = item.title[RendererUtils.getLangType()];
+                item.nameByLang = item.title[RendererUtils.getLangType() || 'ko'];
                 result = item.title.ko.toLowerCase();
             }
             return result;
@@ -588,6 +592,60 @@ class EntryModalHelper {
                 }
             })
             .show();
+    }
+
+    static showUpdateCheckModal(latestVersion) {
+        new Modal()
+            .alert(
+                `${RendererUtils.getLang('Msgs.version_update_msg1')
+                    .replace(/%1/gi, latestVersion)
+                }\n\n${RendererUtils.getLang('Msgs.version_update_msg3')}`,
+                RendererUtils.getLang('General.update_title'),
+                {
+                    positiveButtonText: RendererUtils.getLang('General.recent_download'),
+                    positiveButtonStyle: {
+                        marginTop: '16px',
+                        marginBottom: '16px',
+                        width: '180px',
+                    },
+                    parentClassName: 'versionAlert',
+                    withDontShowAgain: true,
+                }
+            )
+            .one('click', (event, { dontShowChecked }) => {
+                if (event === 'ok') {
+                    IpcRendererHelper.openExternalUrl('https://playentry.org/#!/offlineEditor');
+                }
+                if (dontShowChecked) {
+                    /*
+                    ok 던 close 던 안열기 누른상태면 더이상 안염
+                    localStorage 에는 latestVersion 을 저장
+                    */
+                    StorageManager.setLastDontShowVersion(latestVersion);
+                }
+            });
+    }
+
+    /**
+     * 현재 워크스페이스의 언어에 따라 추가될 오브젝트의 이름을 변경한다.
+     * 선택은 label 에서, 현재언어 > fallback 언어 > ko 순을 따른다.
+     *
+     * @param object{Object} 변환할 타겟 오브젝트
+     * @return{Object} label 에 맞춰 이름이 치환된 오브젝트
+     * @private
+     */
+    static _getLabeledObject(object) {
+        object.pictures && object.pictures.map(this._getLabeledObject);
+        object.sounds && object.sounds.map(this._getLabeledObject);
+
+        const result = object;
+        if (result.label) {
+            result.name =
+                result.label[RendererUtils.getLangType()] ||
+                result.label[RendererUtils.getFallbackLangType()] ||
+                result.name;
+        }
+        return result;
     }
 }
 const popupTargetElement = () => {
