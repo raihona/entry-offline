@@ -5904,10 +5904,11 @@
         "second": "soniya",
         "alert_title": "Alert",
         "confirm_title": "Confirm",
-        "update_title": "Alert",
+        "update_title": "Keyingi versiyasi chiqarilish",
         "recent_download": "Download",
         "recent_download2": "Download the latest version",
-        "latest_version": "Eng yangi versiyasidir."
+        "latest_version": "Eng yangi versiyasidir.",
+        "dont_show_again": "Yana ko'rsatib bermasin"
     },
     "Fonts": {
         "batang": "Batang",
@@ -6433,10 +6434,10 @@
         "hamster_hand_found": "Qo'lni topdimi?",
         "hamster_value": "%1",
         "hamster_move_forward_once": "Taxta ustida to'g'riga bir qadam ko'chish %1",
-        "hamster_turn_once": "Taxta ustida %1ga bir marta aylanish",
+        "hamster_turn_once": "Taxta ustida %1ga bir marta burilish",
         "hamster_move_forward_for_secs": "To'g'riga %1soniya ko'chish %2",
         "hamster_move_backward_for_secs": "Orqaga %1soniya ko'chish %2",
-        "hamster_turn_for_secs": "%1ga %2soniya aylanish %3",
+        "hamster_turn_for_secs": "%1ga %2soniya burilish %3",
         "hamster_change_both_wheels_by": "Chap g'ildiragi: %1 o'ng g'ildiragi: %2 dan o'zgartirish %3",
         "hamster_set_both_wheels_to": "Chap g'ildiragi: %1 o'ng g'ildiragi: %2 ga sozlash %3",
         "hamster_change_wheel_by": "%1 g'ildiragini %2dan o'zgartirsh %3",
