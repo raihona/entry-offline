@@ -532,7 +532,7 @@
         "ARDUINO": "Hardware",
         "ARDUINO_download_connector": "Download Connector",
         "ARDUINO_open_connector": "Open Connector",
-        "ARDUINO_download_source": "Entry Arduino code",
+        "ARDUINO_download_source": "Код Entry Arduino",
         "ARDUINO_reconnect": "Connect Hardware",
         "arduino_noti_text": "* Mobile devices will be\n    supported later on.",
         "ROBOT_reconnect": "Connect Robot",
